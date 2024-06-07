@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container-reg">
+        <form action="{{ url_for('views.register') }}" method="POST">
+            <h2>Register</h2>
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <div class="toggle-password">
+                <input type="checkbox" id="togglePassword">Show Password</input>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="login">Login here</a></p>
+    </div>
+
+    <div id="errorPopup" class="popup error">{{ error }}</div>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('change', function() {
+            var passwordInput = document.getElementById('password');
+            if (this.checked) {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+
+        window.onload = function() {
+            var errorPopup = document.getElementById('errorPopup');
+            if (errorPopup.textContent.trim() !== "") {
+                errorPopup.classList.add('show');
+                setTimeout(function() {
+                    errorPopup.classList.remove('show');
+                }, 3000);
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F1F7ED;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* register login styles */
+
+.container-reg {
+    width: 300px;
+    margin: 200px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-reg form {
+    text-align: center;
+}
+
+.toggle-password {
+    display: flex;
+    font-size: 14px;
+    gap: 5px;
+    align-items: start;
+    justify-content: left;
+    margin-bottom: 5px;
+}
+
+.toggle-password input[type="checkbox"] {
+    margin: 0;
+}
+
+input[type="text"],
+input[type="password"],
+button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.container-reg button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.container-reg button:hover {
+    background-color: #45a049;
+}
+
+.container-reg a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* popup message styles */
+
+.popup {
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    min-width: 250px;
+    max-width: 80%;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 17px;
+}
+
+.error {
+    background-color: #f44336;
+}
+
+.success {
+    background-color: #4CAF50;
+}
+
+.popup.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+/* base page styles */
+
+header {
+    background-color: #243E36;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+}
+
+.logo a:hover {
+    text-decoration: none;
+}
+
+nav ul {
+    width: 50vw;
+    justify-content: flex-start;
+    gap: 3rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li a {
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: none;
+    color: #E0EEC6;
+    transition: 0.1s;
+}
+
+.logout-btn {
+    background-color: #E0EEC6;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    width: auto;
+    font-size: 1rem;
+}
+
+.logout-btn:hover {
+    transition: 0.3s;
+    background-color: #C2DE91;
+}
+
+.content {
+    padding: 1.5rem;
+}
+
+footer {
+    background-color: #243E36;
+    color: #d3d3d3;
+    text-align: center;
+    padding: 0.5rem 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+/* profile page styles */
+
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section {
+    margin-bottom: 2rem;
+}
+
+.profile-section h2 {
+    margin-bottom: 1rem;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-form label {
+    margin-bottom: 0.5rem;
+}
+
+.profile-form input {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profile-form button {
+    padding: 0.5rem 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-form button:hover {
+    background-color: #45a049;
+}
+
+.toggle-password-profile {
+    display: flex;
+    font-size: 14px;
+    gap: 5px;
+    align-items: start;
+    justify-content: left;
+    margin-bottom: 1rem;
+}
+
+.toggle-password-profile input[type="checkbox"] {
+    margin: 0;
+}
+
+/* Home page styles */
+
+.home-container {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+#search-bar {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+#team-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+#team-list li {
+    margin: 10px 0;
+}
+
+.team-item {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.team-item:hover {
+    background-color: #e0e0e0;
+}
+
+.team-item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.dropdown-container {
+    margin-bottom: 1rem;   
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown-container select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 1rem;
+}
+
+.green-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+}
+
+/* Team page styles */
+
+.team-info-container {
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    margin-bottom: 1rem;
+}
+
+.matches {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.match-item {
+    width: 80%;
+    background-color: #f9f9f9;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.stage {
+    font-weight: bold;
+}
+
+.date {
+    font-style: italic;
+}
+
+.match-teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.team {
+    width: 40%;
+    text-align: center;
+}
+
+.team h2 {
+    margin: 0 0 10px 0;
+    font-size: 22px;
+}
+
+.team p {
+    margin: 5px 0;
+}
+
+.scores {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.match-details {
+    text-align: center;
+    font-size: 16px;
+}
+
+.match-details p {
+    margin: 5px 0;
+}
+
+/* football image styles */
+
+.football-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 600px;
+}

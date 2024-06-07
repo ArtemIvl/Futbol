@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ team_name }}{% endblock %}
+
+{% block content %}
+<div class="team-info-container">
+    <h1>Matches for {{ team_name }}</h1>
+    <div class="matches">
+        {% if matches is defined %}
+            {% for match in matches %}
+                {% if match is defined %}
+                    <div class="match-item">
+                        <div class="match-header">
+                            <span class="stage">{{ match.competition_stage.name if match.competition_stage is defined else 'N/A' }}</span>
+                            <span class="date">{{ match.match_date if match.match_date is defined else 'N/A' }}</span>
+                        </div>
+                        <div class="match-teams">
+                            <div class="team home-team">
+                                <h2>{{ match.home_team.home_team_name if match.home_team and match.home_team.home_team_name is defined else 'N/A'}}</h2>
+                                <p>Manager: {{ match.home_team.managers[0].name if match.home_team and match.home_team.managers and match.home_team.managers[0].name is defined else 'N/A' }} ({{ match.home_team.managers[0].country.name if match.home_team and match.home_team.managers and match.home_team.managers[0].country and match.home_team.managers[0].country.name is defined else 'N/A' }})</p>
+                            </div>
+                            <div class="scores">
+                                <span>{{ match.home_score if match and match.home_score is defined else 'N/A' }} - {{ match.away_score if match and match.away_score is defined else 'N/A' }}</span>
+                            </div>
+                            <div class="team away-team">
+                                <h2>{{ match.away_team.away_team_name if match.away_team and match.away_team.away_team_name is defined else 'N/A' }}</h2>
+                                <p>Manager: {{ match.away_team.managers[0].name if match.away_team and match.away_team.managers and match.away_team.managers[0].name is defined else 'N/A'}} ({{ match.away_team.managers[0].country.name if match.away_team and match.away_team.managers and match.away_team.managers[0].country and match.away_team.managers[0].country.name is defined else 'N/A'}})</p>
+                            </div>
+                        </div>
+                        <div class="match-details">
+                            <p>Stadium: {{ match.stadium.name if match and match.stadium and match.stadium.name is defined else 'N/A'  }}, {{ match.stadium.country.name if match and match.stadium and match.stadium.country and match.stadium.country.name is defined else 'N/A'}}</p>
+                            <p>Referee: {{ match.referee.name if match and match.referee and match.referee.name is defined else 'N/A' }} {% if match and match.referee and match.referee.country and match.referee.country.name is defined %}({{ match.referee.country.name }}){% endif %}</p>
+                            {# Add checks for other attributes here #}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

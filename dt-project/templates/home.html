@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Welcome to Futбол</h1>
+    <div class="dropdown-container">
+        <form method="get" action="{{ url_for('views.home') }}">
+            <label for="league">Select League:</label>
+            <select id="league" name="league">
+                <option value="">Select League</option>
+                {% for league_id, league_name in leagues.items() %}
+                    <option value="{{ league_id }}" {% if selected_league == league_id %}selected{% endif %}>{{ league_name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="season">Select Season:</label>
+            <select id="season" name="season" {% if not selected_league %}disabled{% endif %}>
+                <option value="">Select Season</option>
+                {% if selected_league %}
+                    {% for season_id, season_name in seasons.get(selected_league, {}).items() %}
+                        <option value="{{ season_id }}" {% if selected_season == season_id %}selected{% endif %}>{{ season_name }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <button type="submit" class="green-button">Show Teams</button>
+        </form>
+    </div>
+
+    {% if selected_league and selected_season %}
+    <h2>Teams in League: {{ leagues[selected_league] }} - Season: {{ seasons[selected_league][selected_season] }}</h2>
+    <input type="text" id="search-bar" placeholder="Search for a team...">
+    <ul id="team-list">
+        {% for team in team_names %}
+            <li class="team-item">
+                <a href="{{ url_for('views.team_info', team_name=team, league=request.args.get('league'), season=request.args.get('season')) }}">{{ team }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <p id="no-results" style="display:none;">No such team found.</p>
+    {% else %}
+    <img src="{{ url_for('static', filename='ball.png') }}" alt="ball" class="football-image">
+    {% endif %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Trigger updateSeasons() when league selection changes
+        document.getElementById('league').addEventListener('change', function() {
+            updateSeasons();
+        });
+        
+        // Initialize seasons dropdown when the page loads
+        updateSeasons();
+
+        // Add event listener for search bar
+        document.getElementById('search-bar').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let teamList = document.getElementById('team-list');
+            let teams = teamList.getElementsByClassName('team-item');
+            let noResults = document.getElementById('no-results');
+            let matches = 0;
+
+            Array.from(teams).forEach(function(team) {
+                let teamName = team.textContent || team.innerText;
+                if (teamName.toLowerCase().indexOf(filter) > -1) {
+                    team.style.display = '';
+                    matches++;
+                } else {
+                    team.style.display = 'none';
+                }
+            });
+
+            if (matches === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+    });
+
+    const seasonData = {{ seasons | tojson | safe }};
+    
+    function updateSeasons() {
+        const leagueSelect = document.getElementById('league');
+        const seasonSelect = document.getElementById('season');
+        const selectedLeague = leagueSelect.value;
+        
+        seasonSelect.innerHTML = '<option value="">Select Season</option>';
+        seasonSelect.disabled = !selectedLeague; // Disable season dropdown if league is not selected
+        
+        if (selectedLeague && seasonData[selectedLeague]) {
+            const availableSeasons = seasonData[selectedLeague];
+            for (const [seasonId, seasonName] of Object.entries(availableSeasons)) {
+                const option = document.createElement('option');
+                option.value = seasonId;
+                option.textContent = seasonName;
+                seasonSelect.appendChild(option);
+            }
+        }
+    }
+</script>
+{% endblock %}

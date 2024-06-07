@@ -1,0 +1,44 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Footbolchik{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+        <a href="{{ url_for('views.home') }}">
+            Futбол
+        </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('views.home') }}">Home</a></li>
+                <li><a href="{{ url_for('views.profile') }}">Profile</a></li>
+            </ul>
+        </nav>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <p>Contact us at: info@futbol.com</p>
+    </footer>
+
+    <script>
+        function logout() {
+            fetch('{{ url_for("views.logout") }}', {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = "{{ url_for('views.login') }}";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
