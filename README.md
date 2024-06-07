@@ -1,4 +1,4 @@
-Futbol Statistics website
+**Futbol Statistics website**
 
 The goal of the website is to provide detailed football team and match information. Enhance the experience of football fans and analysts by providing easy access to team and match data.
 
